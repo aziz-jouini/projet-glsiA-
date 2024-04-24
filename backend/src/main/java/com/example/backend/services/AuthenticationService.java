@@ -36,7 +36,7 @@ public class AuthenticationService {
 
 
 
-        user.setRole(request.getRole());
+       user.setRole(request.getRole());
 
         user.setUsername(request.getUsername());
 
@@ -53,10 +53,25 @@ public class AuthenticationService {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
+        // Récupérer l'utilisateur depuis la base de données
+        User user = userRepo.findByUsername(request.getUsername()).orElseThrow(() -> new RuntimeException("User not found"));
 
-        User user = userRepo.findByUsername(request.getUsername()).orElseThrow();
+        // Vérifier si l'utilisateur a un rôle défini
+        if (user.getRole() == null) {
+            // Gérer le cas où le rôle de l'utilisateur n'est pas défini
+            throw new RuntimeException("Role not defined for user: " + user.getUsername());
+        }
+
+        // Générer le token JWT avec le rôle de l'utilisateur
         String token = jwtService.generateToken(user);
-        return new AuthenticationResponse(token);
+
+        // Créer une nouvelle instance d'AuthenticationResponse avec le token et le rôle
+        AuthenticationResponse response = new AuthenticationResponse(token);
+        response.setRole(user.getRole()); // Définir le rôle dans la réponse
+
+        // Retourner la réponse d'authentification avec le token JWT et le rôle
+        return response;
     }
+
 
 }

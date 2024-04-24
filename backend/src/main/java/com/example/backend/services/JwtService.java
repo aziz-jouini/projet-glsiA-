@@ -26,6 +26,8 @@ public class JwtService {
 
 
 
+
+
     public boolean isValid(String token, UserDetails user) {
         String username = extractUsername(token);
         return (username.equals(user.getUsername()))&& !isTokenExpired(token);
@@ -66,19 +68,18 @@ public class JwtService {
 
 
     public String generateToken(User user) {
+        String roleAsString = user.getRole().toString();
+         // Convertir le rôle en chaîne de caractères
         String token = Jwts
                 .builder()
                 .subject(user.getUsername())
-                .claim("role", user.getRole()) // Ajouter le rôle comme une revendication personnalisée
-
+                .claim("role", roleAsString)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis()+ 24*60*60*60))
+                .expiration(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 60))
                 .signWith(getSigninKey())
                 .compact();
 
         return token;
-
-
     }
 
     private SecretKey getSigninKey() {

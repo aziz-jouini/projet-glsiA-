@@ -10,11 +10,15 @@ import { FooterComponent } from './components/footer/footer.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { ContinueComponent } from './components/continue/continue.component';
 import { RegisterComponent } from './components/register/register.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { UserComponent } from './components/user/user.component';
+import { AddMenuComponent } from './components/add-menu/add-menu.component';
+import { AddImageComponent } from './components/add-image/add-image.component';
+import { JwtInterceptor } from './jwt.interceptor';
+
 
 
 
@@ -31,17 +35,22 @@ import { UserComponent } from './components/user/user.component';
     LoginComponent,
     AdminComponent,
     UserComponent,
-    
+    AddMenuComponent,
+    AddImageComponent,
+   
     
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
 
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

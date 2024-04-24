@@ -18,6 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/admin2")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class AdminController {
 
     private final CloudinaryService cloudinaryService;

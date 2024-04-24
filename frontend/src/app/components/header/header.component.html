@@ -17,16 +17,47 @@
                                 <a class="nav-link" routerLink="">Home</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" routerLink="contact">Contact</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" routerLink="login">Login</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" routerLink="register">Register</a>
+                                
                             </li>
-                            
                            
-                            <li class="nav-item">
-                                <a class="nav-link" routerLink="contact">Contact</a>
+                            <!-- Afficher les options spécifiques à l'admin -->
+                            <li *ngIf="isAdmin" class="nav-item">
+                                <a class="nav-link" routerLink="admin/add-menu">Add Menu</a>
                             </li>
+                            <li *ngIf="isAdmin" class="nav-item">
+                                <a class="nav-link" routerLink="admin/add-image">Add Image</a>
+                            </li>
+                            <li *ngIf="isAdmin" class="nav-item">
+                                <a class="nav-link" routerLink="add-product">Add Product</a>
+                            </li>
+                            <li *ngIf="isAdmin" class="nav-item">
+                                <a class="nav-link" routerLink="list-reservations">List Reservations</a>
+                            </li>
+                            <li *ngIf="isAdmin" class="nav-item">
+                                <button (click)="logout()">Logout</button>
+                            </li>
+                           
+                            <!-- Afficher les options spécifiques à l'utilisateur -->
+                            <li *ngIf="!isAdmin" class="nav-item">
+                                <a class="nav-link" routerLink="list-menu">List Menu</a>
+                            </li>
+                            <li *ngIf="!isAdmin" class="nav-item">
+                                <a class="nav-link" routerLink="list-product-reservation">List Product </a>
+                            </li>
+                            <li *ngIf="!isAdmin" class="nav-item">
+                                <a class="nav-link" routerLink="list-reservations">List Reservations</a>
+                            </li>
+                            <li *ngIf="!isAdmin" class="nav-item">
+                                <button (click)="logout()">Logout</button>
+                            </li>
+                           
                         </ul>
                     </div>
                    

@@ -1,0 +1,59 @@
+<section class="breadcrumb breadcrumb_bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb_iner text-center">
+                    <div class="breadcrumb_iner_item">
+                        <h2>Menu</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="add-menu-form">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <form (submit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="nom">Nom du menu</label>
+                        <input type="text" class="form-control" id="nom" [(ngModel)]="nom" name="nom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" [(ngModel)]="description" name="description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="photo">Photo</label>
+                        <input type="file" class="form-control-file" id="photo" (change)="onFileSelected($event)" name="photo" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ajouter Menu</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Affichage de la liste des menus -->
+<section *ngIf="menus.length > 0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Liste des menus :</h3>
+                <ul>
+                    <li *ngFor="let menu of menus">
+                        <div>{{ menu.name }}</div>
+                        <div>{{ menu.description }}</div>
+                       
+                        <!-- Ajoutez d'autres éléments du menu si nécessaire -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Affichage d'un message si la liste des menus est vide -->
+<div *ngIf="menus.length === 0">
+    <p>Aucun menu disponible pour le moment.</p>
+</div>

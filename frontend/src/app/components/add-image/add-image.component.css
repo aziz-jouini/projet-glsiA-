@@ -1,0 +1,49 @@
+/* CSS pour la section Add Image */
+.add-image-section {
+    margin-top: 50px; /* Espacement depuis le haut */
+  }
+  
+  .add-image-title {
+    text-align: center; /* Centrer le titre */
+    margin-bottom: 30px; /* Espacement depuis le titre jusqu'au formulaire */
+  }
+  
+  /* CSS pour le formulaire */
+  .add-image-form {
+    width: 100%;
+    max-width: 400px; /* Largeur maximale du formulaire */
+    margin: 0 auto; /* Centrer le formulaire horizontalement */
+  }
+  
+  .add-image-input {
+    margin-bottom: 20px; /* Espacement entre le champ de fichier et le bouton */
+  }
+  
+  .add-image-button {
+    width: 100%; /* Largeur du bouton */
+    padding: 10px; /* Remplissage du bouton */
+    background-color: #007bff; /* Couleur de fond du bouton */
+    color: #fff; /* Couleur du texte du bouton */
+    border: none; /* Supprimer la bordure */
+    border-radius: 5px; /* Arrondir les coins */
+    cursor: pointer; /* Curseur pointer */
+  }
+  
+  .add-image-button:hover {
+    background-color: #0056b3; /* Couleur de fond du bouton au survol */
+  }
+  
+  /* CSS pour les images téléchargées */
+  .uploaded-images {
+    margin-top: 30px; /* Espacement depuis le formulaire */
+  }
+  
+  .uploaded-image {
+    margin-bottom: 20px; /* Espacement entre chaque image */
+  }
+  
+  .uploaded-image img {
+    max-width: 100%; /* Largeur maximale de l'image */
+    height: auto; /* Hauteur automatique pour conserver les proportions */
+  }
+  
