@@ -9,6 +9,7 @@ import { UserComponent } from './components/user/user.component';
 import { AddMenuComponent } from './components/add-menu/add-menu.component';
 import { AddImageComponent } from './components/add-image/add-image.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
+import { AddReservationsComponent } from './components/add-reservations/add-reservations.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,8 @@ const routes: Routes = [
   {path:"admin/add-menu",component:AddMenuComponent},
   {path:"admin/add-image",component:AddImageComponent},
   {path:"admin/add-product",component:AddProductComponent},
+  {path:"user/add-reservations",component:AddReservationsComponent},
+
   
 
 ];

@@ -3,8 +3,10 @@ package com.example.backend.services;
 import com.example.backend.entity.Commande;
 import com.example.backend.entity.Menu;
 import com.example.backend.entity.Product;
+import com.example.backend.entity.Reclamation;
 import com.example.backend.repositories.CommandeRepository;
 import com.example.backend.repositories.MenuRepository;
+import com.example.backend.repositories.ReclamationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,8 @@ public class UserService {
 
     @Autowired
     private CommandeRepository commandeRepo;
+    @Autowired
+    private ReclamationRepository ReclamationRepo;
 
     public List<Menu> listMenus() {
         return menuRepository.findAll();
@@ -39,6 +43,8 @@ public class UserService {
     }
 
 
-
+    public Reclamation addReclamation(Reclamation reclamation) {
+        return ReclamationRepo.save(reclamation);
+    }
 }
 

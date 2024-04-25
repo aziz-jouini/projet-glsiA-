@@ -1,16 +1,9 @@
 package com.example.backend.services;
 
-import com.example.backend.entity.Commande;
-import com.example.backend.entity.Image;
-import com.example.backend.entity.Menu;
-import com.example.backend.entity.Product;
-import com.example.backend.repositories.CommandeRepository;
-import com.example.backend.repositories.ImageRepo;
-import com.example.backend.repositories.MenuRepository;
-import com.example.backend.repositories.ProductRepo;
+import com.example.backend.entity.*;
+import com.example.backend.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.backend.entity.CommandeStatus;
 
 
 import java.util.List;
@@ -26,6 +19,10 @@ public class AdminService {
     private ProductRepo productRepository;
     @Autowired
     private CommandeRepository commandeRepository;
+    @Autowired
+    private EmployeeRepo employeeRepo;
+    @Autowired
+    private ReclamationRepository reclamationRepository;
 
     public List<Image> listImages(){
         return imageRepository.findByOrderById();
@@ -94,4 +91,13 @@ public class AdminService {
         return false;
     }
 
+    public Employee addEmployee(Employee employee) {
+        return employeeRepo.save(employee);
+    }
+
+    public List<Employee> listEmployees() {return employeeRepo.findAll();
+    }
+
+    public List<Reclamation> listReclamations() {return reclamationRepository.findAll();
+    }
 }

@@ -19,6 +19,7 @@ import { AddMenuComponent } from './components/add-menu/add-menu.component';
 import { AddImageComponent } from './components/add-image/add-image.component';
 import { JwtInterceptor } from './jwt.interceptor';
 import { AddProductComponent } from './components/add-product/add-product.component';
+import { AddReservationsComponent } from './components/add-reservations/add-reservations.component';
 
 
 
@@ -39,6 +40,7 @@ import { AddProductComponent } from './components/add-product/add-product.compon
     AddMenuComponent,
     AddImageComponent,
     AddProductComponent,
+    AddReservationsComponent,
    
     
   ],

@@ -151,6 +151,21 @@ public class AdminController {
             return new ResponseEntity<>("Impossible de mettre à jour le statut de la commande", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PostMapping("/addemployee")
+    public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
+        Employee addedEmployee = adminService.addEmployee(employee);
+        return new ResponseEntity<>(addedEmployee, HttpStatus.CREATED);
+    }
+    @GetMapping("/listemployee")
+    public ResponseEntity<List<Employee>> listEmployees() {
+        List<Employee> employees = adminService.listEmployees();
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+    @GetMapping("/listreclamation")
+    public ResponseEntity<List<Reclamation>> listReclamations() {
+        List<Reclamation> reclamations = adminService.listReclamations();
+        return new ResponseEntity<>(reclamations, HttpStatus.OK);
+    }
 
 }
 

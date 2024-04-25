@@ -4,6 +4,7 @@ package com.example.backend.controller;
 import com.example.backend.entity.Commande;
 import com.example.backend.entity.Menu;
 import com.example.backend.entity.Product;
+import com.example.backend.entity.Reclamation;
 import com.example.backend.services.AdminService;
 import com.example.backend.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
     private final UserService userService;
@@ -43,6 +45,13 @@ public class UserController {
         List<Commande> commandes = userService.listCommandes();
         return new ResponseEntity<>(commandes, HttpStatus.OK);
     }
+    @PostMapping("/addreclamation")
+    public ResponseEntity<Reclamation> addReclamation(@RequestBody Reclamation reclamation) {
+        Reclamation addedReclamation = userService.addReclamation(reclamation);
+        return new ResponseEntity<>(addedReclamation, HttpStatus.CREATED);
+    }
+
+
 
 
 
