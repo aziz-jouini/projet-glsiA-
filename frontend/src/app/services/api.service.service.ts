@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 import { Image } from '../models/image.model';
 import { Menu } from '../models/menu.model'; // Ajout de l'import du modèle Menu
+import { Product } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -47,10 +48,34 @@ export class ApiService {
     formData.append('photo', photo);
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
     return this.http.post<any>(`${this.apiUrl}/api/admin2/addmenu`, formData, { headers });
-  }
+}
+  updateMenuWithImage(menuId: number, imageId: number): Observable<any> {
+  const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+  return this.http.put<any>(`${this.apiUrl}/api/admin2/menu/${menuId}/image/${imageId}`, null, { headers });
+}
+
+
   listMenus(): Observable<Menu[]> {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
     return this.http.get<Menu[]>(`${this.apiUrl}/api/admin2/listmenu`, { headers });
+  }
+  addProductToMenu(menuId: number, name: string, price: number, description: string): Observable<any> {
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('price', price.toString());
+    formData.append('description', description);
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.post<any>(`${this.apiUrl}/api/admin2/addproduct/${menuId}`, formData, { headers });
+  }
+
+  deleteProduct(productId: number): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.delete<any>(`${this.apiUrl}/api/admin2/deleteproduct/${productId}`, { headers });
+  }
+
+  listProducts(menuId: number): Observable<Product[]> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.get<Product[]>(`${this.apiUrl}/api/admin2/listproducts/${menuId}`, { headers });
   }
   
 }
