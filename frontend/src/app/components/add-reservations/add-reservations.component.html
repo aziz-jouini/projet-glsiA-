@@ -11,3 +11,34 @@
         </div>
     </div>
 </section>
+
+
+  
+  <form (ngSubmit)="submitReservationForm()">
+   
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" [(ngModel)]="reservation.user.username" required><br>
+  
+    <label for="firstname">First Name:</label>
+    <input type="text" id="firstname" name="firstname" [(ngModel)]="reservation.user.firstname" required><br>
+  
+    <label for="lastname">Last Name:</label>
+    <input type="text" id="lastname" name="lastname" [(ngModel)]="reservation.user.lastname" required><br>
+  
+    
+  
+    <label for="typeTable">Type de table:</label>
+    <input type="text" id="typeTable" name="typeTable" [(ngModel)]="reservation.typeTable" required><br>
+  
+    <label for="dateTime">Date & Time:</label>
+    <input type="datetime-local" id="dateTime" name="dateTime" [(ngModel)]="reservation.dateTime" required><br>
+  
+    <label for="commandeStatus">Commande Status:</label>
+    <select id="commandeStatus" name="commandeStatus" [(ngModel)]="reservation.commandeStatus" required>
+      <option value="EN_ATTENTE">En attente</option>
+      
+    </select><br>
+  
+    <button type="submit">Submit</button>
+  </form>              
+  

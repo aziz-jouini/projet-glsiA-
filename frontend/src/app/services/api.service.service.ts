@@ -5,6 +5,8 @@ import { User } from '../models/user.model';
 import { Image } from '../models/image.model';
 import { Menu } from '../models/menu.model'; // Ajout de l'import du modèle Menu
 import { Product } from '../models/product.model';
+import { Reservation } from '../models/reservation.model';
+import { Reclamation } from '../models/reclamation.model';
 
 @Injectable({
   providedIn: 'root'
@@ -76,6 +78,20 @@ export class ApiService {
   listProducts(menuId: number): Observable<Product[]> {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
     return this.http.get<Product[]>(`${this.apiUrl}/api/admin2/listproducts/${menuId}`, { headers });
+  }
+  addCommande(commande: Reservation): Observable<Reservation> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.post<Reservation>(`${this.apiUrl}/api/user/addcommande`, commande, { headers });
+  }
+
+  // Méthode pour récupérer la liste des commandes
+  listCommandes(): Observable<Reservation[]> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.get<Reservation[]>(`${this.apiUrl}/api/user/listcommande`, { headers });
+  }
+  addReclamation(reclamation: Reclamation): Observable<Reclamation> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.post<Reclamation>(`${this.apiUrl}/api/user/addreclamation`, reclamation, { headers });
   }
   
 }
