@@ -7,6 +7,7 @@ import { Menu } from '../models/menu.model'; // Ajout de l'import du modèle Men
 import { Product } from '../models/product.model';
 import { Reservation } from '../models/reservation.model';
 import { Reclamation } from '../models/reclamation.model';
+import { Employee } from '../models/employee.model';
 
 @Injectable({
   providedIn: 'root'
@@ -92,6 +93,10 @@ export class ApiService {
   addReclamation(reclamation: Reclamation): Observable<Reclamation> {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
     return this.http.post<Reclamation>(`${this.apiUrl}/api/user/addreclamation`, reclamation, { headers });
+  }
+  addEmployee(employee: Employee): Observable<Employee> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.post<Employee>(`${this.apiUrl}/api/admin2/addemployee`, employee, { headers });
   }
   
 }

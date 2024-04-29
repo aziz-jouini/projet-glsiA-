@@ -11,6 +11,7 @@ import { AddImageComponent } from './components/add-image/add-image.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { AddReservationsComponent } from './components/add-reservations/add-reservations.component';
 import { AddReclamationComponent } from './components/add-reclamation/add-reclamation.component';
+import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path:"admin/add-product",component:AddProductComponent},
   {path:"user/add-reservations",component:AddReservationsComponent},
   {path:"user/add-reclamation",component:AddReclamationComponent},
+  {path:"admin/add-employee",component:AddEmployeeComponent},
 
   
 

@@ -11,4 +11,15 @@
         </div>
     </div>
 </section>
-  
+
+<form (ngSubmit)="submitReclamationForm()">
+
+
+
+    <label for="firstname">User:</label>
+    <input type="text" id="firstname" name="firstname" [(ngModel)]="reclamation.user.id" required><br>
+
+    <label for="lastname">Description:</label>
+    <input type="text" id="lastname" name="lastname" [(ngModel)]="reclamation.description" required><br>
+    <button type="submit">Ajouter</button>
+</form>
