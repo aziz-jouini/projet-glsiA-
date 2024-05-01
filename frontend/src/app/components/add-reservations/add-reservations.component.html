@@ -28,8 +28,12 @@
     
   
     <label for="typeTable">Type de table:</label>
-    <input type="text" id="typeTable" name="typeTable" [(ngModel)]="reservation.typeTable" required><br>
-  
+    <select id="typeTable" name="typeTable" [(ngModel)]="reservation.typeTable" required>
+        <option value="Table individuelle">Table individuelle</option>
+        <option value="Table a 2 ">Table a 2 </option>
+        <option value="Table a 3">Table a 3</option>
+        <option value="Table a 4">Table a 4</option>
+    </select> <br>
     <label for="dateTime">Date & Time:</label>
     <input type="datetime-local" id="dateTime" name="dateTime" [(ngModel)]="reservation.dateTime" required><br>
   

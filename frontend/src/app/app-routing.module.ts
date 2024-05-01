@@ -12,6 +12,7 @@ import { AddProductComponent } from './components/add-product/add-product.compon
 import { AddReservationsComponent } from './components/add-reservations/add-reservations.component';
 import { AddReclamationComponent } from './components/add-reclamation/add-reclamation.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
+import { ListReclamationsComponent } from './components/list-reclamations/list-reclamations.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
   {path:"user/add-reservations",component:AddReservationsComponent},
   {path:"user/add-reclamation",component:AddReclamationComponent},
   {path:"admin/add-employee",component:AddEmployeeComponent},
+  {path:"admin/list-reclamations",component:ListReclamationsComponent},
 
   
 

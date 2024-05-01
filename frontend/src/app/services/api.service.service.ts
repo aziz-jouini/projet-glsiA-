@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 import { Image } from '../models/image.model';
-import { Menu } from '../models/menu.model'; // Ajout de l'import du modèle Menu
+import { Menu } from '../models/menu.model';
 import { Product } from '../models/product.model';
 import { Reservation } from '../models/reservation.model';
 import { Reclamation } from '../models/reclamation.model';
@@ -97,6 +97,10 @@ export class ApiService {
   addEmployee(employee: Employee): Observable<Employee> {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
     return this.http.post<Employee>(`${this.apiUrl}/api/admin2/addemployee`, employee, { headers });
+  }
+  listReclamations(): Observable<Reclamation[]> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.get<Reclamation[]>(`${this.apiUrl}/api/admin2/listreclamation`, { headers });
   }
   
 }

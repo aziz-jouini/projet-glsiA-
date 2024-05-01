@@ -41,9 +41,12 @@
                                 <a class="nav-link" routerLink="admin/add-employee">Add Employee</a>
                             </li>
                             <li *ngIf="isAdmin" class="nav-item">
-                                <a class="nav-link" routerLink="list-reservations">List Reservations</a>
+                                <a class="nav-link" routerLink="admin/list-reservations">List Reservations</a>
                             </li>
                             <li *ngIf="isAdmin" class="nav-item">
+                                <a class="nav-link" routerLink="admin/list-reclamations">List Reclamations</a>
+                            </li>
+                            <li *ngIf="isAdmin" class="nav-item-danger">
                                 <button (click)="logout()">Logout</button>
                             </li>
                            

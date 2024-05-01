@@ -23,6 +23,7 @@ export class AddReservationsComponent {
       (addedCommande) => {
         console.log('Commande ajoutée avec succès :', addedCommande);
         // Réinitialisez le formulaire après l'ajout de la commande
+
         this.reservation = {
           id: 0,
           user: { id: 1, username: 'john_doe', firstname: 'John', lastname: 'Doe', password: 'password' },
@@ -30,6 +31,7 @@ export class AddReservationsComponent {
           dateTime: new Date(),
           commandeStatus: CommandeStatus.EN_ATTENTE
         };
+        localStorage.setItem('reservation', JSON.stringify(this.reservation)); 
       },
       (error) => {
         console.error('Erreur lors de l\'ajout de la commande :', error);

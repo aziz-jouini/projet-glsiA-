@@ -59,10 +59,14 @@ public class AdminService {
 
     public Product addProductToMenu(Product product, Long menuId) {
         Optional<Menu> menuOptional = menuRepository.findById(menuId);
-        return menuOptional.map(menu -> {
+        if (menuOptional.isPresent()) {
+            Menu menu = menuOptional.get();
             product.setMenu(menu);
             return productRepository.save(product);
-        }).orElse(null);
+        } else {
+            // Gérer le cas où le menu n'est pas trouvé
+            return null;
+        }
     }
 
     public void removeProduct(Long productId) {

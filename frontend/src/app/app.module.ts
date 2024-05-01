@@ -22,6 +22,7 @@ import { AddProductComponent } from './components/add-product/add-product.compon
 import { AddReservationsComponent } from './components/add-reservations/add-reservations.component';
 import { AddReclamationComponent } from './components/add-reclamation/add-reclamation.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
+import { ListReclamationsComponent } from './components/list-reclamations/list-reclamations.component';
 
 
 
@@ -45,6 +46,7 @@ import { AddEmployeeComponent } from './components/add-employee/add-employee.com
     AddReservationsComponent,
     AddReclamationComponent,
     AddEmployeeComponent,
+    ListReclamationsComponent,
    
     
   ],
