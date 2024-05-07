@@ -1,6 +1,7 @@
 package com.example.backend.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,6 +27,8 @@ public class Menu {
     @OneToOne
     private Image image;
 
+
+    @JsonIgnore
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
     private List<Product> products;
 }

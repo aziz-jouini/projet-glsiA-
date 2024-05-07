@@ -73,7 +73,10 @@ public class JwtService {
         String token = Jwts
                 .builder()
                 .subject(user.getUsername())
-                .claim("role", roleAsString)
+                .claim("role", user.getRole())
+                .claim("firstname",user.getFirstname())
+                .claim("lastname",user.getLastname())
+                .claim("id",user.getId())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 60))
                 .signWith(getSigninKey())

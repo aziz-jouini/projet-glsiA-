@@ -65,5 +65,5 @@ export class AddImageComponent implements OnInit {
       );
     }
   }
-  
+
 }

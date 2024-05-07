@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,8 +21,6 @@ import { JwtInterceptor } from './jwt.interceptor';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { AddReservationsComponent } from './components/add-reservations/add-reservations.component';
 import { AddReclamationComponent } from './components/add-reclamation/add-reclamation.component';
-import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
-import { ListReclamationsComponent } from './components/list-reclamations/list-reclamations.component';
 
 
 
@@ -45,10 +43,8 @@ import { ListReclamationsComponent } from './components/list-reclamations/list-r
     AddProductComponent,
     AddReservationsComponent,
     AddReclamationComponent,
-    AddEmployeeComponent,
-    ListReclamationsComponent,
-   
-    
+
+
   ],
   imports: [
     BrowserModule,
@@ -60,7 +56,7 @@ import { ListReclamationsComponent } from './components/list-reclamations/list-r
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
-  
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

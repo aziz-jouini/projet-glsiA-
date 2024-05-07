@@ -1,0 +1,24 @@
+.user-popup {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(174, 162, 162);
+  background-color: rgba(201, 197, 197, 0.4);
+}
+
+.user-popup-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.user-popup-content h2 {
+  margin-bottom: 20px;
+}

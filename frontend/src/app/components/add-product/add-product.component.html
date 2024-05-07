@@ -31,11 +31,9 @@
                     <div class="form-group">
                         <label for="menu">Menu</label>
                         <select class="form-control" id="menu" [(ngModel)]="selectedMenu" name="menu" required>
-                            <option disabled selected value="">Sélectionner un menu</option> <!-- Option par défaut -->
-                            <option *ngFor="let menu of menus" [ngValue]="menu.id">{{ menu.name }}</option>
+                            <option *ngFor="let menu of menus" [value]="menu.id">{{ menu.name }}</option>
                         </select>
                     </div>
-                    
                     <button type="submit" class="btn btn-primary">Ajouter Produit</button>
                 </form>
             </div>

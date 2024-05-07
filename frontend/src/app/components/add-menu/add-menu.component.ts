@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service.service';
 import { Menu } from 'src/app/models/menu.model';
 import { Image } from 'src/app/models/image.model';
+import { Router } from '@angular/router';
+import { Product } from 'src/app/models/product.model';
 
 @Component({
   selector: 'app-add-menu',
@@ -14,12 +16,22 @@ export class AddMenuComponent implements OnInit {
   description: string = '';
   photo: File | null = null;
   imageId: number  | null = null; // Pour stocker l'ID de l'image associée au menu
+  isAdmin: boolean = false;
+  productList : Product[] = [];
+  isPopupVisible: boolean = false;
+  constructor(private apiService: ApiService,private router:Router) { }
 
-  constructor(private apiService: ApiService) { }
-  
   ngOnInit(): void {
     this.loadMenus();
-    // Stocker les données dans localStorage
+
+
+    this.apiService.loadProfile();
+    if (this.apiService.UserRole === 'ADMIN') {
+      this.isAdmin = true;
+    }
+    else {
+      this.isAdmin = false;
+    }
   }
 
   loadMenus(): void {
@@ -30,8 +42,38 @@ export class AddMenuComponent implements OnInit {
       },
       (error) => {
         console.error('Erreur lors du chargement des menus :', error);
+
+
       }
     );
+
+
+
+  }
+
+
+  showProductsForMenu(menuId: number): void {
+    this.isPopupVisible = true;
+
+   this.apiService.listProducts(menuId).subscribe(
+    (productList: Product[]) => {
+      this.productList = [];
+
+      productList.forEach(product => {
+        if (product) {
+          this.productList.push(product);
+        }
+      });
+    },
+    error => {
+      console.error('Erreur lors de la récupération des produits pour la session : ', error);
+    }
+  );
+  }
+
+
+  closePopup(): void {
+    this.isPopupVisible = false;
   }
 
   onSubmit(): void {
@@ -39,7 +81,7 @@ export class AddMenuComponent implements OnInit {
       console.error('Veuillez remplir tous les champs et sélectionner une image.');
       return;
     }
-  
+
     this.apiService.addMenu(this.nom, this.description, this.photo).subscribe(
       (response) => {
         console.log('Menu ajouté avec succès !', response);
@@ -53,11 +95,18 @@ export class AddMenuComponent implements OnInit {
       },
       (error) => {
         console.error('Erreur lors de l\'ajout du menu :', error);
-        // Gérer les erreurs d'ajout de menu ici
+        //redirection vers home
+        this.router.navigate(['/home']);
+
+        //location reload apres 1s
+        setTimeout(() => {
+          window.location.reload();
+        }, 750);
+
       }
     );
   }
-  
+
 
   onFileSelected(event: any): void {
     const files = event.target.files;

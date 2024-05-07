@@ -1,3 +1,5 @@
+
+
 <section class="breadcrumb breadcrumb_bg">
     <div class="container">
         <div class="row">
@@ -11,7 +13,62 @@
         </div>
     </div>
 </section>
-<section class="add-menu-form">
+
+
+
+<section *ngIf="menus.length > 0&&!isAdmin">
+  <table class="table align-items-center table-dark table-flush">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">NAME</th>
+        <th scope="col">Description</th>
+        <th scope="col">Voir Liste des produits </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let menu of menus; let i=index;" [ngClass]="{'odd': i % 2 == 0, 'even': i % 2 != 0}">
+        <td>{{ menu.id }}</td>
+        <td>{{ menu.name }}</td>
+        <td>{{ menu.description }}</td>
+        <td> <button (click)="showProductsForMenu(menu.id!)" class="btn btn-info">Voir La liste</button>
+        </td>
+
+        <div *ngIf="isPopupVisible" class="user-popup">
+          <div class="user-popup-content">
+            <span class="close" (click)="closePopup()">&times;</span>
+            <h2>Liste des Produits de Menu</h2>
+            <h3>Produits :</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>Price</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of productList">
+                  <td>{{ product.name }}</td>
+                  <td>{{ product.price }}</td>
+                  <td>{{ product.description }}</td>
+
+                </tr>
+              </tbody>
+            </table>
+        </div>
+      </div>
+
+      </tr>
+    </tbody>
+  </table>
+
+<div *ngIf="menus.length === 0">
+  <p>Aucun menu disponible pour le moment.</p>
+</div>
+</section>
+
+<section *ngIf="isAdmin" class="add-menu-form">
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2">
@@ -35,25 +92,4 @@
     </div>
 </section>
 <!-- Affichage de la liste des menus -->
-<section *ngIf="menus.length > 0">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h3>Liste des menus :</h3>
-                <ul>
-                    <li *ngFor="let menu of menus">
-                        <div>{{ menu.name }}</div>
-                        <div>{{ menu.description }}</div>
-                       
-                        <!-- Ajoutez d'autres éléments du menu si nécessaire -->
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
 
-<!-- Affichage d'un message si la liste des menus est vide -->
-<div *ngIf="menus.length === 0">
-    <p>Aucun menu disponible pour le moment.</p>
-</div>

@@ -111,7 +111,6 @@ public class AdminController {
         product.setName(name);
         product.setPrice(price);
         product.setDescription(description);
-        product.setMenu(menu); // Assigner le menu trouvé au produit
 
         Product savedProduct = adminService.addProductToMenu(product, menuId);
         if (savedProduct != null) {
@@ -120,7 +119,6 @@ public class AdminController {
             return new ResponseEntity<>("Impossible d'ajouter le produit au menu", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 
     @DeleteMapping("/deleteproduct/{productId}")
     public ResponseEntity<String> deleteProduct(@PathVariable("productId") Long productId) {
@@ -144,13 +142,13 @@ public class AdminController {
     }
 
     @PutMapping("/updatecommandestatus/{commandeId}/{status}")
-    public ResponseEntity<String> updateCommandeStatus(@PathVariable("commandeId") Long commandeId,
+    public ResponseEntity<?> updateCommandeStatus(@PathVariable("commandeId") Long commandeId,
                                                        @PathVariable("status") CommandeStatus status) {
         boolean updated = adminService.updateCommandeStatus(commandeId, status);
         if (updated) {
-            return new ResponseEntity<>("Statut de la commande mis à jour avec succès !", HttpStatus.OK);
+            return new ResponseEntity<>(updated, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Impossible de mettre à jour le statut de la commande", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(updated, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @PostMapping("/addemployee")

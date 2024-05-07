@@ -11,12 +11,10 @@ import { AddImageComponent } from './components/add-image/add-image.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { AddReservationsComponent } from './components/add-reservations/add-reservations.component';
 import { AddReclamationComponent } from './components/add-reclamation/add-reclamation.component';
-import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
-import { ListReclamationsComponent } from './components/list-reclamations/list-reclamations.component';
 
 
 const routes: Routes = [
-  {path:"", component:HomeComponent},
+  {path:"home", component:HomeComponent},
   {path:"contact",component:ContactComponent},
   {path:"register",component:RegisterComponent},
   {path:"login",component:LoginComponent},
@@ -27,10 +25,8 @@ const routes: Routes = [
   {path:"admin/add-product",component:AddProductComponent},
   {path:"user/add-reservations",component:AddReservationsComponent},
   {path:"user/add-reclamation",component:AddReclamationComponent},
-  {path:"admin/add-employee",component:AddEmployeeComponent},
-  {path:"admin/list-reclamations",component:ListReclamationsComponent},
 
-  
+
 
 ];
 

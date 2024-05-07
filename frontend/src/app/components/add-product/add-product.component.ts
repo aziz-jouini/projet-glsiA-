@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service.service';
 import { Product } from 'src/app/models/product.model';
 import { Menu } from 'src/app/models/menu.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-product',
@@ -15,10 +16,15 @@ export class AddProductComponent implements OnInit {
   selectedMenu: number | null = null; // Pour stocker l'ID du menu sélectionné
   menus: Menu[] = [];
 
-  constructor(private apiService: ApiService) { }
+  product: Product = { name: '', price: 0, description: '' };
+
+  constructor(private apiService: ApiService,private router:Router) { }
 
   ngOnInit(): void {
     this.loadMenus();
+
+    console.log(this.apiService.accessToken);
+    console.log(this.apiService.UserRole);
   }
 
   loadMenus(): void {
@@ -43,12 +49,12 @@ export class AddProductComponent implements OnInit {
     }
 
     // Vérifier que selectedMenu est un nombre
-    if (typeof this.selectedMenu !== 'number') {
-      console.error('Menu sélectionné invalide.');
-      return;
-    }
+   //if (typeof this.selectedMenu !== 'number') {
+     // console.error('Menu sélectionné invalide.');
+      //return;
+    //}
 
-    this.apiService.addProductToMenu(this.selectedMenu, this.name, priceNumber, this.description).subscribe(
+    this.apiService.addProductToMenu(this.selectedMenu, this.name, this.price, this.description).subscribe(
       (response) => {
         console.log('Produit ajouté avec succès !', response);
         // Gérer la réponse ou effectuer une redirection si nécessaire
@@ -56,6 +62,14 @@ export class AddProductComponent implements OnInit {
       (error) => {
         console.error('Erreur lors de l\'ajout du produit :', error);
         // Gérer les erreurs d'ajout de produit ici
+
+         //redirection vers home
+         this.router.navigate(['/home']);
+
+         //location reload apres 1s
+         setTimeout(() => {
+           window.location.reload();
+         }, 750);
       }
     );
   }
