@@ -44,6 +44,9 @@
                           <li *ngIf="isAdmin&&authentification" class="nav-item">
                             <a class="nav-link" routerLink="user/add-reservations">List Reservations</a>
                         </li>
+                        <li *ngIf="isAdmin&&authentification" class="nav-item">
+                            <a class="nav-link" routerLink="admin/add-employee">Add Employee</a>
+                        </li>
 
 
 
@@ -58,7 +61,8 @@
 
                             <li *ngIf="!isAdmin&&authentification" class="nav-item">
                               <a class="nav-link" routerLink="user/add-reservations">Add Reservations</a>
-                          </li>
+                          </li> 
+                         
 
                             <li *ngIf="!isAdmin&&authentification" class="nav-item">
                                 <a class="nav-link" routerLink="user/add-reclamation">Add Reclamation</a>

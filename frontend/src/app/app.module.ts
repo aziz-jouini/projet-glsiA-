@@ -21,6 +21,9 @@ import { JwtInterceptor } from './jwt.interceptor';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { AddReservationsComponent } from './components/add-reservations/add-reservations.component';
 import { AddReclamationComponent } from './components/add-reclamation/add-reclamation.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 
 
 
@@ -43,6 +46,7 @@ import { AddReclamationComponent } from './components/add-reclamation/add-reclam
     AddProductComponent,
     AddReservationsComponent,
     AddReclamationComponent,
+    AddEmployeeComponent,
 
 
   ],
@@ -51,7 +55,9 @@ import { AddReclamationComponent } from './components/add-reclamation/add-reclam
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot() 
 
   ],
   providers: [

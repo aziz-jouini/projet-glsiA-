@@ -121,13 +121,13 @@ public class AdminController {
     }
 
     @DeleteMapping("/deleteproduct/{productId}")
-    public ResponseEntity<String> deleteProduct(@PathVariable("productId") Long productId) {
+    public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("productId") Long productId) {
         if (!adminService.productExists(productId)) {
-            return new ResponseEntity<>("Produit non trouvé", HttpStatus.NOT_FOUND);
+             new ResponseEntity<>("Produit non trouvé", HttpStatus.NOT_FOUND);
         }
 
         adminService.removeProduct(productId);
-        return new ResponseEntity<>("Produit supprimé avec succès !", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/listproducts/{menuId}")
@@ -166,6 +166,43 @@ public class AdminController {
         List<Reclamation> reclamations = adminService.listReclamations();
         return new ResponseEntity<>(reclamations, HttpStatus.OK);
     }
+
+
+    @PutMapping("/{id}")
+    public Menu updateMenu(@PathVariable Long id, @RequestBody Menu updatedMenu) {
+        return adminService.updateMenu(id, updatedMenu);
+    }
+
+    @PutMapping("product/{id}")
+    public Product updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
+        return adminService.updateProduct(id, updatedProduct);
+    }
+
+    @DeleteMapping("/deletemenu/{menuId}")
+    public ResponseEntity<HttpStatus> deleteMenu(@PathVariable("menuId") Long menuId) {
+        adminService.removeMenu(menuId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @DeleteMapping("/deleteemployee/{employeeId}")
+    public ResponseEntity<?> deleteEmployee(@PathVariable("employeeId") Long employeeId) {
+        boolean deleted = adminService.deleteEmployee(employeeId);
+        if (deleted) {
+            return new ResponseEntity<>("Employee deleted successfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Failed to delete employee", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @PutMapping("/updateemployee/{employeeId}")
+    public ResponseEntity<?> updateEmployee(@PathVariable("employeeId") Long employeeId, @RequestBody Employee updatedEmployee) {
+        boolean updated = adminService.updateEmployee(employeeId, updatedEmployee);
+        if (updated) {
+            return new ResponseEntity<>("Employee updated successfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Failed to update employee", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
 }
 

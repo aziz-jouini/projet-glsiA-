@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
-import { Product } from 'src/app/models/product.model';
 import { CommandeStatus, Reservation } from 'src/app/models/reservation.model';
 import { ApiService } from 'src/app/services/api.service.service'; // Correction de l'import
 
@@ -19,6 +18,7 @@ export class AddReservationsComponent implements OnInit{
     commandeStatus: CommandeStatus.EN_ATTENTE
   };
 
+  showUserId!: number;
   commandeStatusOptions: CommandeStatus[] = [
   CommandeStatus.EN_ATTENTE,
   CommandeStatus.ACCEPTE,
@@ -80,17 +80,19 @@ onChangeCommandeStatus(): void {
   loadReservation(): void {
     this.apiService.listCommandes().subscribe(
       (reservations: Reservation[]) => {
-        this.reservations = reservations;
-        console.log('Réservations chargées avec succès :', reservations);
+        if (this.isAdmin) {
+          // Si l'utilisateur est un administrateur, afficher toutes les réservations
+          this.reservations = reservations;
+        } else {
+          // Sinon, filtrer les réservations pour n'afficher que celles de l'utilisateur actuel
+          this.reservations = reservations.filter(reservation => reservation.user.id === this.reservation.user.id);
+        }
+        console.log('Réservations chargées avec succès :', this.reservations);
       },
       (error) => {
-        console.error('Erreur lors du chargement des menus :', error);
-
-
+        console.error('Erreur lors du chargement des réservations :', error);
       }
     );
-
-
 
   }
 

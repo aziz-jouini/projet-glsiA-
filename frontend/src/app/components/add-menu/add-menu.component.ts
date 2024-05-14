@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service.service';
-import { Menu } from 'src/app/models/menu.model';
-import { Image } from 'src/app/models/image.model';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product.model';
+import { Menu } from 'src/app/models/menu.model';
 
 @Component({
   selector: 'app-add-menu',
@@ -12,6 +11,7 @@ import { Product } from 'src/app/models/product.model';
 })
 export class AddMenuComponent implements OnInit {
   menus: Menu[] = [];
+  id: number = 0;
   nom: string = '';
   description: string = '';
   photo: File | null = null;
@@ -19,6 +19,17 @@ export class AddMenuComponent implements OnInit {
   isAdmin: boolean = false;
   productList : Product[] = [];
   isPopupVisible: boolean = false;
+  showModal: boolean = false;
+  isUpdate: boolean = false;
+  product: Product = {id:0,name:'',description:'',price:0,menu:{id:0,name:'',description:'',imageId:0}};
+  showModalProduct: boolean = false;
+  isUpdateProduct: boolean = false;
+  menu: Menu = {id:0,name:'',description:'',imageId:0};
+  isAddMenuFormVisible: boolean = false;
+
+
+
+
   constructor(private apiService: ApiService,private router:Router) { }
 
   ngOnInit(): void {
@@ -132,4 +143,90 @@ export class AddMenuComponent implements OnInit {
       }
     );
   }
+
+
+
+  openPopupForUpdate(menutoupdate:any) {
+    this.menu=menutoupdate;
+    this.showModal = true;
+    this.isUpdate=true;
+
+  }
+
+  closePopupForUpdate() {
+    this.showModal = false;
+  }
+
+
+
+
+  updateMenu(id: number, updatedMenu: any): void {
+    this.apiService.updateMenu(id, updatedMenu).subscribe(
+      (response) => {
+        console.log('Menu mis à jour avec succès !', response);
+        // Gérez la réponse ou effectuez des actions supplémentaires si nécessaire
+
+      },
+      (error) => {
+        console.error('Erreur lors de la mise à jour du menu :', error);
+        // Gérez les erreurs ici
+      }
+    );
+    this.closePopupForUpdate();
+  }
+
+  openPopupForUpdateProduct(producttoupdate: any) {
+    this.product=producttoupdate;
+    this.showModalProduct = true;
+    this.isUpdateProduct=true;  }
+
+    closePopupForUpdateProduct() {
+      this.showModalProduct = false;
+    }
+
+    updateProduct(id: number, updatedProduct: any): void {
+      this.apiService.updateProduct(id, updatedProduct).subscribe(
+        (response) => {
+          console.log('Produit mis à jour avec succès !', response);
+          // Gérez la réponse ou effectuez des actions supplémentaires si nécessaire
+        },
+        (error) => {
+          console.error('Erreur lors de la mise à jour du produit :', error);
+          // Gérez les erreurs ici
+        }
+      );
+      this.closePopupForUpdateProduct();
+    }
+
+    deleteProduct(arg0: number) {
+      this.apiService.deleteProduct(arg0).subscribe(
+        (response) => {
+          console.log('Produit supprimé avec succès !', response);
+          this.closePopup();
+        },
+        (error) => {
+          console.error('Erreur lors de la suppression du produit :', error);
+          this.closePopup();
+
+
+        }
+      );
+      }
+      deleteMenu(arg0: number) {
+      this.apiService.deleteMenu(arg0).subscribe(
+        (response) => {
+          console.log('Menu supprimé avec succès !', response);
+          this.loadMenus();
+
+        },
+        (error) => {
+          console.error('Erreur lors de la suppression du menu :', error);
+        }
+      );
+      }
+
+      toggleAddMenuFormVisibility(): void {
+        this.isAddMenuFormVisible = !this.isAddMenuFormVisible;
+      }
+
 }

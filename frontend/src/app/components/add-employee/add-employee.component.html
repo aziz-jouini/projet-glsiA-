@@ -1,0 +1,75 @@
+<section class="breadcrumb breadcrumb_bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb_iner text-center">
+                    <div class="breadcrumb_iner_item">
+                        <h2>Ajouter un employé</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <h2>Ajouter un employé</h2>
+    <form (submit)="addEmployee()">
+        <div class="form-group">
+            <label for="name">Nom:</label>
+            <input type="text" id="name" [(ngModel)]="newEmployee.name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="mission">Mission:</label>
+            <input type="text" id="mission" [(ngModel)]="newEmployee.mission" name="mission" required>
+        </div>
+        <button type="submit">Ajouter</button>
+    </form>
+</div>
+
+<div class="container">
+    <h2>Liste des employés</h2>
+    <table class="table">
+      <!-- Tableau des employés -->
+      <tbody>
+        <tr *ngFor="let employee of employees; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ employee.name }}</td>
+          <td>{{ employee.mission }}</td>
+          <td>
+            <!-- Bouton Modifier -->
+            <button class="btn btn-primary" (click)="editEmployee(employee)">Modifier</button>
+            <!-- Bouton Supprimer -->
+            <button class="btn btn-danger" (click)="deleteEmployee(employee.id)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- Affichage si aucun employé -->
+    <p *ngIf="!employees || employees.length === 0">Aucun employé à afficher.</p>
+</div>
+
+<!-- Formulaire de modification -->
+<div *ngIf="isEditMode" class="container">
+    <h2>Modifier un employé</h2>
+    <form (submit)="updateEmployee()">
+      <div class="form-group">
+        <label for="name">Nom:</label>
+        <!-- Affiche le champ d'édition du nom si selectedEmployeeForEdit est défini -->
+        <input *ngIf="selectedEmployeeForEdit" type="text" id="name" [(ngModel)]="selectedEmployeeForEdit.name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="mission">Mission:</label>
+        <!-- Affiche le champ d'édition de la mission si selectedEmployeeForEdit est défini -->
+        <input *ngIf="selectedEmployeeForEdit" type="text" id="mission" [(ngModel)]="selectedEmployeeForEdit.mission" name="mission" required>
+      </div>
+      <!-- Bouton de mise à jour -->
+      <button type="submit">Mettre à jour</button>
+      <!-- Bouton d'annulation -->
+      <button type="button" (click)="cancelEdit()">Annuler</button>
+    </form>
+  </div>
+  
+  
+
+

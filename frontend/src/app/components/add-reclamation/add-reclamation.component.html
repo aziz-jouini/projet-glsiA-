@@ -11,4 +11,22 @@
         </div>
     </div>
 </section>
-  
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Ajouter une réclamation</div>
+        <div class="card-body">
+          <form (ngSubmit)="addReclamation()">
+            <div class="form-group">
+              <label for="description">Description de la réclamation :</label>
+              <textarea id="description" name="description" class="form-control" [(ngModel)]="reclamationData.description" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

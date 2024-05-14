@@ -10,13 +10,13 @@ import { Reclamation } from '../models/reclamation.model';
 
 import { jwtDecode } from 'jwt-decode';
 import { AuthenticationResponse } from '../models/AuthenticationResponse';
+import { Employee } from '../models/employee.model';
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   private apiUrl = 'http://localhost:9000/resto';
 
-  private userUrl = 'http://localhost:9000/resto/api/user';
 
   isAuthenticated : boolean=false;
   username:any;
@@ -136,5 +136,41 @@ export class ApiService {
     return this.http.put<void>(`${this.apiUrl}/api/admin2/updatecommandestatus/${commandeId}/${status}`, null,{headers});
   }
 
+
+  updateMenu(id: number, updatedMenu: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    const url = `${this.apiUrl}/api/admin2/${id}`;
+    return this.http.put(url, updatedMenu,{ headers });
+  }
+
+  updateProduct(id: number, updatedProduct: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    const url = `${this.apiUrl}/api/admin2/product/${id}`;
+    return this.http.put(url, updatedProduct,{ headers });
+  }
+
+  deleteMenu(menuId: number): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.delete<any>(`${this.apiUrl}/api/admin2/deletemenu/${menuId}`, { headers });
+  }
+  addEmployee(employee: Employee): Observable<Employee> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.post<Employee>(`${this.apiUrl}/api/admin2/addemployee`, employee);
+  }
+
+  listEmployees(): Observable<Employee[]> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.get<Employee[]>(`${this.apiUrl}/api/admin2/listemployee`);
+  }
+  deleteEmployee(employeeId: number): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.delete<any>(`${this.apiUrl}/api/admin2/deleteemployee/${employeeId}`, { headers });
+  }
+
+  // Méthode pour mettre à jour un employé
+  updateEmployee(employeeId: number, updatedEmployee: Employee): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.put<any>(`${this.apiUrl}/api/admin2/updateemployee/${employeeId}`, updatedEmployee, { headers });
+  }
 
 }

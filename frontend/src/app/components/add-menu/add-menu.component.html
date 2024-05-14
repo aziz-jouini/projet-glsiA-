@@ -1,5 +1,3 @@
-
-
 <section class="breadcrumb breadcrumb_bg">
     <div class="container">
         <div class="row">
@@ -14,9 +12,7 @@
     </div>
 </section>
 
-
-
-<section *ngIf="menus.length > 0&&!isAdmin">
+<section *ngIf="menus.length > 0">
   <table class="table align-items-center table-dark table-flush">
     <thead class="thead-dark">
       <tr>
@@ -24,6 +20,9 @@
         <th scope="col">NAME</th>
         <th scope="col">Description</th>
         <th scope="col">Voir Liste des produits </th>
+        <th scope="col" *ngIf="isAdmin">Modifier</th>
+        <th scope="col" *ngIf="isAdmin">Supprimer</th>
+
       </tr>
     </thead>
     <tbody>
@@ -31,8 +30,10 @@
         <td>{{ menu.id }}</td>
         <td>{{ menu.name }}</td>
         <td>{{ menu.description }}</td>
-        <td> <button (click)="showProductsForMenu(menu.id!)" class="btn btn-info">Voir La liste</button>
-        </td>
+        <td> <button (click)="showProductsForMenu(menu.id!)" class="btn btn-info">Voir La liste</button></td>
+        <td><button (click)="openPopupForUpdate(menu)"  class="btn btn-info" *ngIf="isAdmin">Modifier Le Menu</button></td>
+        <td><button (click)="deleteMenu(menu.id!)" class="btn btn-danger" *ngIf="isAdmin">Supprimer Le Menu</button></td>
+
 
         <div *ngIf="isPopupVisible" class="user-popup">
           <div class="user-popup-content">
@@ -45,6 +46,8 @@
                   <th>Nom</th>
                   <th>Price</th>
                   <th>Description</th>
+                  <th *ngIf="isAdmin">Modifier</th>
+                  <th *ngIf="isAdmin">Supprimer</th>
                 </tr>
               </thead>
               <tbody>
@@ -52,13 +55,17 @@
                   <td>{{ product.name }}</td>
                   <td>{{ product.price }}</td>
                   <td>{{ product.description }}</td>
+                  <td><button (click)="openPopupForUpdateProduct(product)" class="btn btn-info" *ngIf="isAdmin">Modifier</button></td>
+                  <td><button (click)="deleteProduct(product.id!)" class="btn btn-info"*ngIf="isAdmin">Delete Product</button></td>
 
                 </tr>
               </tbody>
+              <div *ngIf="productList.length === 0">
+                <p>Aucun Produit disponible pour le moment.</p>
+              </div>
             </table>
         </div>
       </div>
-
       </tr>
     </tbody>
   </table>
@@ -68,9 +75,15 @@
 </div>
 </section>
 
-<section *ngIf="isAdmin" class="add-menu-form">
+<div class="text-center">
+  <button class="btn btn-primary" (click)="toggleAddMenuFormVisibility()">Ajouter un menu</button>
+</div>
+
+
+<section *ngIf="isAdmin &&isAddMenuFormVisible" class="add-menu-form">
     <div class="container">
         <div class="row">
+
             <div class="col-md-8 offset-md-2">
                 <form (submit)="onSubmit()">
                     <div class="form-group">
@@ -85,11 +98,90 @@
                         <label for="photo">Photo</label>
                         <input type="file" class="form-control-file" id="photo" (change)="onFileSelected($event)" name="photo" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Ajouter Menu</button>
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">ADD</button>
+
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </section>
-<!-- Affichage de la liste des menus -->
+
+
+<section>
+ <!-- Button to trigger the popup -->
+ <div class="modal" tabindex="-1" role="dialog" *ngIf="showModal" style="display: block;">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <button *ngIf="!isUpdate"  type="button" class="btn-close text-white" aria-label="Close" (click)="closePopupForUpdate()"></button>
+      </div>
+<div class="modal-body custom-modal-body">
+  <h2 *ngIf="isUpdate" class="text-center mb-4">Modifer votre Menu</h2>
+  <form (ngSubmit)="updateMenu(menu.id!,menu)" #menuForm="ngForm" class="p-4 border rounded">
+    <div class="form-group">
+      <label for="nom">Nom :</label>
+      <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="menu.name" required>
+    </div>
+    <div class="form-group">
+      <label for="Description">Description :</label>
+      <input type="text" class="form-control" id="Description" name="Description" [(ngModel)]="menu.description" required>
+    </div>
+    <div class="text-center">
+      <button *ngIf="isUpdate" type="submit" class="btn btn-info" [disabled]="!menuForm.valid">Modifier</button>
+    </div>
+     </form>
+
+</div>
+<button *ngIf="isUpdate" type="button" class="btn btn-secondary" (click)="closePopupForUpdate()">Close</button>
+
+</div>
+</div>
+</div>
+</section>
+
+
+
+
+
+<section>
+  <!-- Button to trigger the popup -->
+  <div class="modal" tabindex="-1" role="dialog" *ngIf="showModalProduct" style="display: block;">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+     <div class="modal-content">
+       <div class="modal-header bg-primary text-white">
+         <button *ngIf="!isUpdateProduct"  type="button" class="btn-close text-white" aria-label="Close" (click)="closePopupForUpdateProduct()"></button>
+       </div>
+ <div class="modal-body custom-modal-body">
+   <h2 *ngIf="isUpdateProduct" class="text-center mb-4">Modifer votre Product</h2>
+   <form (ngSubmit)="updateProduct(product.id!,product)" #productForm="ngForm" class="p-4 border rounded">
+     <div class="form-group">
+       <label for="nom">Nom :</label>
+       <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="product.name" required>
+     </div>
+     <div class="form-group">
+       <label for="Description">Description :</label>
+       <input type="text" class="form-control" id="Description" name="Description" [(ngModel)]="product.description" required>
+     </div>
+
+
+    <div class="form-group">
+      <label for="price">Prix</label>
+      <input type="number" class="form-control" id="price" [(ngModel)]="product.price" name="price" required>
+  </div>
+     <div class="text-center">
+       <button *ngIf="isUpdateProduct" type="submit" class="btn btn-info" [disabled]="!productForm.valid">Modifier</button>
+     </div>
+      </form>
+
+ </div>
+ <button *ngIf="isUpdateProduct" type="button" class="btn btn-secondary" (click)="closePopupForUpdateProduct()">Close</button>
+
+ </div>
+ </div>
+ </div>
+ </section>
+
+
 

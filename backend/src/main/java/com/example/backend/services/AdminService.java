@@ -100,4 +100,49 @@ public class AdminService {
 
     public List<Reclamation> listReclamations() {return reclamationRepository.findAll();
     }
+
+
+    public Menu updateMenu(Long id, Menu updatedMenu) {
+        // Vérifiez si le menu existe
+        Menu existingMenu = menuRepository.findById(id).orElse(null);
+        // Mettez à jour les champs du menu existant avec les nouvelles valeurs
+        existingMenu.setName(updatedMenu.getName());
+        existingMenu.setDescription(updatedMenu.getDescription());
+        // Sauvegardez le menu mis à jour dans la base de données
+        return menuRepository.save(existingMenu);
+    }
+
+    public Product updateProduct(Long id, Product updatedProduct) {
+        Product existingProduct = productRepository.findById(id).orElse(null);
+
+        existingProduct.setPrice(updatedProduct.getPrice());
+        existingProduct.setDescription(updatedProduct.getDescription());
+        existingProduct.setName(updatedProduct.getName());
+
+        return productRepository.save(existingProduct);
+    }
+
+    public void removeMenu(Long menuId) {
+        menuRepository.deleteById(menuId);
+    }
+    public boolean deleteEmployee(Long employeeId) {
+        if (employeeRepo.existsById(employeeId)) {
+            employeeRepo.deleteById(employeeId);
+            return true;
+        }
+        return false;
+    }
+    public boolean updateEmployee(Long employeeId, Employee updatedEmployee) {
+        Optional<Employee> existingEmployeeOptional = employeeRepo.findById(employeeId);
+        if (existingEmployeeOptional.isPresent()) {
+            Employee existingEmployee = existingEmployeeOptional.get();
+            existingEmployee.setName(updatedEmployee.getName());
+            existingEmployee.setMission(updatedEmployee.getMission());
+            employeeRepo.save(existingEmployee);
+            return true;
+        }
+        return false;
+    }
+
+
 }

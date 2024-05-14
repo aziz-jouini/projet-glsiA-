@@ -1,6 +1,3 @@
-
-
-
 <section class="breadcrumb breadcrumb_bg">
     <div class="container">
         <div class="row">
@@ -15,7 +12,7 @@
     </div>
 </section>
 
-<section *ngIf="reservations.length > 0&&isAdmin">
+<section *ngIf="reservations.length > 0">
   <table class="table align-items-center table-dark table-flush">
     <thead class="thead-dark">
       <tr>
@@ -23,10 +20,7 @@
         <th scope="col">DATE</th>
         <th scope="col">TYPETABLE</th>
         <th scope="col">USER</th>
-        <th scope="col">STATUS</th>
-
-
-
+        <th scope="col" *ngIf="isAdmin">STATUS</th>
       </tr>
     </thead>
     <tbody>
@@ -35,15 +29,11 @@
         <td>{{ reservation.dateTime }}</td>
         <td>{{ reservation.typeTable }}</td>
         <td>{{ reservation.user.firstname }}</td>
-
-        <td>
+        <td *ngIf="isAdmin">
           <select [(ngModel)]="reservation.commandeStatus">
             <option *ngFor="let status of commandeStatusOptions" [value]="status">{{ status }}</option>
           </select>
         </td>
-
-
-
       </tr>
     </tbody>
 
@@ -51,10 +41,10 @@
   <!--ajout un bouton qui est situé au milieu du tableau-->
 
   <div class="text-center">
-    <button class="btn btn-primary btn-sm" (click)="onChangeCommandeStatus()">Changer l'état des réservations</button>
+    <button class="btn btn-primary btn-sm" (click)="onChangeCommandeStatus()" *ngIf="isAdmin">Changer l'état des réservations</button>
   </div>
 <div *ngIf="reservations.length === 0">
-  <p>Aucun menu disponible pour le moment.</p>
+  <p>Aucune réservation disponible pour le moment.</p>
 </div>
 
 </section>
@@ -78,11 +68,7 @@
     <label for="dateTime">Date & Time:</label>
     <input type="datetime-local" id="dateTime" name="dateTime" [(ngModel)]="reservation.dateTime" required><br>
 
-    <label for="commandeStatus">Commande Status:</label>
-    <select id="commandeStatus" name="commandeStatus" [(ngModel)]="reservation.commandeStatus" required>
-      <option value="EN_ATTENTE">En attente</option>
-
-    </select><br>
+    
 
     <button type="submit">Submit</button>
   </form>
