@@ -48,6 +48,26 @@ public class UserService {
     }
 
 
+    public List<Reclamation> listReclamation() { return ReclamationRepo.findAll();
+    }
+    public boolean deleteReclamation(Long reclamationId) {
+        if (ReclamationRepo.existsById(reclamationId)) {
+            ReclamationRepo.deleteById(reclamationId);
+            return true;
+        }
+        return false;
+    }
 
+    public boolean updateReclamation(Long reclamationId, Reclamation updateReclamation) {
+        Optional<Reclamation> existingReclamationOptional = ReclamationRepo.findById(reclamationId);
+        if (existingReclamationOptional.isPresent()) {
+            Reclamation existingReclamation = existingReclamationOptional.get();
+            existingReclamation.setDescription(updateReclamation.getDescription());
+            existingReclamation.setUser(updateReclamation.getUser());
+            ReclamationRepo.save(existingReclamation);
+            return true;
+        }
+        return false;
+    }
 }
 

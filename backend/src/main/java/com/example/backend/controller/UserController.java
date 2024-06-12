@@ -50,6 +50,31 @@ public class UserController {
         Reclamation addedReclamation = userService.addReclamation(reclamation);
         return new ResponseEntity<>(addedReclamation, HttpStatus.CREATED);
     }
+    @GetMapping("/listreclamation")
+    public ResponseEntity<List<Reclamation>> listReclamation() {
+        List<Reclamation> reclamation = userService.listReclamation();
+        return new ResponseEntity<>(reclamation, HttpStatus.OK);
+    }
+    @PostMapping("deletereclamation")
+    public ResponseEntity<?> deleteReclamation(@PathVariable("reclamationId") Long reclamationId) {
+        boolean deleted = userService.deleteReclamation(reclamationId);
+        if (deleted) {
+            return new ResponseEntity<>("Reclamation deleted successfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Failed to delete reclamation", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @PutMapping ("/updatereclamation/{reclamationId}")
+    public ResponseEntity<?> updateReclamation(@PathVariable("reclamationId") Long reclamationId, @RequestBody Reclamation updateReclamation) {
+        boolean updated = userService.updateReclamation(reclamationId, updateReclamation);
+        if (updated) {
+            return new ResponseEntity<>("reclamation updated successfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("failed to update reclamation", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
 
 
