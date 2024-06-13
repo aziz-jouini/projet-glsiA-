@@ -1,10 +1,7 @@
 package com.example.backend.controller;
 
 
-import com.example.backend.entity.Commande;
-import com.example.backend.entity.Menu;
-import com.example.backend.entity.Product;
-import com.example.backend.entity.Reclamation;
+import com.example.backend.entity.*;
 import com.example.backend.services.AdminService;
 import com.example.backend.services.UserDetailsServiceImpl;
 import com.example.backend.services.UserService;
@@ -71,6 +68,16 @@ public class UserController {
             return new ResponseEntity<>("reclamation updated successfully", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("failed to update reclamation", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @PutMapping("/updatecommandestatus/{commandeId}/{status}")
+    public ResponseEntity<?> updateCommandeStatus(@PathVariable("commandeId") Long commandeId,
+                                                  @PathVariable("status") CommandeStatus status) {
+        boolean updated = userService.updateCommandeStatus(commandeId, status);
+        if (updated) {
+            return new ResponseEntity<>(updated, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(updated, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

@@ -1,9 +1,6 @@
 package com.example.backend.services;
 
-import com.example.backend.entity.Commande;
-import com.example.backend.entity.Menu;
-import com.example.backend.entity.Product;
-import com.example.backend.entity.Reclamation;
+import com.example.backend.entity.*;
 import com.example.backend.repositories.CommandeRepository;
 import com.example.backend.repositories.MenuRepository;
 import com.example.backend.repositories.ReclamationRepository;
@@ -69,5 +66,19 @@ public class UserService {
         }
         return false;
     }
+
+
+        public boolean updateCommandeStatus(Long commandeId, CommandeStatus status) {
+            Optional<Commande> commandeOptional = commandeRepo.findById(commandeId);
+            if (commandeOptional.isPresent()) {
+                Commande commande = commandeOptional.get();
+                commande.setCommandeStatus(status);
+                commandeRepo.save(commande);
+                return true;
+            }
+            return false;
+        }
+
+
 }
 

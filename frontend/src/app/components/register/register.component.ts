@@ -10,7 +10,7 @@ import { User, Role } from 'src/app/models/user.model';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  roles = [Role.ADMIN, Role.USER];
+  roles = [Role.ADMIN, Role.USER, Role.Employee];
 
   constructor(private fb: FormBuilder, private apiService: ApiService) {
     this.registerForm = this.fb.group({

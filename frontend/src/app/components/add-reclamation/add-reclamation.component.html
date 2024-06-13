@@ -1,32 +1,52 @@
 <section class="breadcrumb breadcrumb_bg">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="breadcrumb_iner text-center">
-                    <div class="breadcrumb_iner_item">
-                        <h2>Reclamation</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-12">
+              <div class="breadcrumb_iner text-center">
+                  <div class="breadcrumb_iner_item">
+                      <h2>Réclamation</h2>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </section>
+
+<table class="table align-items-center table-dark table-flush">
+  <thead class="thead-dark">
+      <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Description</th>
+          <th scope="col">Utilisateur</th>
+          <th scope="col">Modifier</th>
+          <th scope="col">Supprimer</th>
+  
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let reclamation of reclamations; let i = index" [ngClass]="{'odd': i % 2 == 0, 'even': i % 2 != 0}">
+          <td>{{ reclamation.id }}</td>
+          <td>{{ reclamation.description }}</td>
+          <td>{{ reclamation.userId}}</td>
+      </tr>
+  </tbody>
+</table>
 
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">Ajouter une réclamation</div>
-        <div class="card-body">
-          <form (ngSubmit)="addReclamation()">
-            <div class="form-group">
-              <label for="description">Description de la réclamation :</label>
-              <textarea id="description" name="description" class="form-control" [(ngModel)]="reclamationData.description" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Ajouter</button>
-          </form>
-        </div>
+      <div class="col-md-6">
+          <div class="card">
+              <div class="card-header">Ajouter une réclamation</div>
+              <div class="card-body">
+                  <form *ngIf="!isAdmin" (ngSubmit)="addReclamation()">
+                      <div class="form-group">
+                          <label for="description">Description de la réclamation :</label>
+                          <textarea id="description" name="description" class="form-control" [(ngModel)]="reclamationData.description" required></textarea>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Ajouter</button>
+                  </form>
+              </div>
+          </div>
       </div>
-    </div>
   </div>
 </div>

@@ -20,9 +20,12 @@ public class AuthenticationController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse>register (@RequestBody User request){
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody User request) {
+        // Ajout d'une vérification pour afficher le rôle reçu
+        System.out.println("Rôle reçu : " + request.getRole());
 
-        return ResponseEntity.ok(authenticationService.register(request));
+        AuthenticationResponse response = authenticationService.register(request);
+        return ResponseEntity.ok(response);
     }
 
 

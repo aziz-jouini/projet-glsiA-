@@ -172,5 +172,18 @@ export class ApiService {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
     return this.http.put<any>(`${this.apiUrl}/api/admin2/updateemployee/${employeeId}`, updatedEmployee, { headers });
   }
+  listReclamations(): Observable<Reclamation[]> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.get<Reclamation[]>(`${this.apiUrl}/api/user/listreclamation`, { headers });
+  }
+  updateReclamation(reclamationId: number, updatedReclamation: Reclamation): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.put<any>(`${this.apiUrl}/api/user/updatereclamation/${reclamationId}`, updatedReclamation, { headers });
+  }
+  deleteReclamation(reclamationId: number): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.delete<any>(`${this.apiUrl}/api/user/deletereclamation/${reclamationId}`, { headers });
+  }
+
 
 }
